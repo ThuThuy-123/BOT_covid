@@ -46,3 +46,4 @@ except:
 #in ra các biện pháp phòng tránh
 print('Các biện pháp phòng chống:')
 print('- Giữ khoảng cách an toàn','\n''- Đeo khẩu trang nơi công cộng' )
+Sửa
