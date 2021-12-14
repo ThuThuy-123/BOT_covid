@@ -1,0 +1,48 @@
+import requests #thư viện
+#hàm lấy ngày
+from datetime import date
+today = date.today()
+print("Ngày hiện tại:", today)
+print('Tình hình covid trên thế giới: ')
+lst=[]
+def update():
+        r = requests.get('https://coronavirus-19-api.herokuapp.com/all')
+        data = r.json()
+        nhiem=  f'So ca nhiem :   {data["cases"]}'
+        tuvong= f'So ca tu vong: {data["deaths"]}'
+        phuchoi=f'Da phuc hoi :  {data["recovered"]}'
+        lst.append(nhiem)
+        lst.append(tuvong)
+        lst.append(phuchoi)
+update()
+ds=[]
+#đưa số liệu kiểu chuỗi về kiểu số nguyên
+for i in range(len(lst)):
+        e=int(lst[i][14:])
+        ds.append(int(e))
+#tính phần trăm
+phantram = (ds[1]/ds[0]) * 100
+phantram2= (ds[2]/ds[0]) * 100
+#in ra kết quả số ca nhiễm, tử vong, phục hồi
+print('Số ca nhiễm:',ds[0])
+print('Số ca tử vong:',ds[1],'(chiếm',phantram,'% số ca nhiễm)')
+print('Số ca phục hồi:',ds[2],'(chiếm',phantram2,'% số ca nhiễm)')
+print()
+
+#tiem= int(input("Bạn đã tiêm bao nhiêu mũi:"))
+try:
+    a = int(input("So mui ban da tiem: "))
+    if a < 0 or a >= 2:
+        raise Exception
+except:
+        #print("So mui phai tu 0->2")
+        a = int(input("So mui ban da tiem: "))
+        if a==0:
+                print("Chua tiem mui nao")
+        elif a==1:
+                print("Tiem mot mui")
+        else:
+                print("Da tiem du")
+#in ra các biện pháp phòng tránh
+print('Các biện pháp phòng chống:')
+print('- Giữ khoảng cách an toàn','\n''- Đeo khẩu trang nơi công cộng' )
